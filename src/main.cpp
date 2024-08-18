@@ -1,10 +1,10 @@
-#include <raylib.h>
+#include "raylib.h" 
 #include <vector>
 #include <random>
 #include <chrono>
 #include <thread>
 #define RAYGUI_IMPLEMENTATION
-#include "include/raygui.h" 
+#include "raygui.h" 
 #include "bubble_sort.h"
 #include "merge_sort.h"
 

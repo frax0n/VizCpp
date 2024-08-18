@@ -1,6 +1,6 @@
 #include "utils.h"
 #include <vector>
-#include <raylib.h>
+#include "../include/raylib.h" 
 
 void utils::Draw2dArray(std::vector<int> &array,int size){
     int rectWidth = 30;
