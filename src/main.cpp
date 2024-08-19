@@ -38,20 +38,35 @@ int main(){
     }
 
     
-    BubbleSort Bubble_Sorting =  BubbleSort(40);
-    MergeSort Merge_Sorting =  MergeSort(40);
-    while (!WindowShouldClose()){
+    BubbleSort Bubble_Sorting = BubbleSort(40);
+    MergeSort Merge_Sorting = MergeSort(40);
+
+    while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        if (currentState == MENU){
-            if(GuiButton((Rectangle){ 24, 24, 120, 30 },"Bubble Sort") == true){
-            currentState = BUBBLE_SORT;
-        }
-            if(GuiButton((Rectangle){ 24, 48, 120, 30 },"Merge Sort") == true){
+
+        // Sidebar area for buttons and descriptions
+        DrawRectangle(0, 0, 300, screenHeight, LIGHTGRAY);
+
+        if (currentState == MENU) {
+            if (GuiButton((Rectangle){ 20, 20, 260, 50 }, "Bubble Sort")) {
+                currentState = BUBBLE_SORT;
+            }
+            if (GuiButton((Rectangle){ 20, 80, 260, 50 }, "Merge Sort")) {
                 currentState = MERGE_SORT;
+            }
+
+            
+            if (currentState == MENU) {
+                DrawText("Sorting Algorithms", 20, 150, 20, DARKGRAY);
+                DrawText("Bubble Sort: A simple comparison-\nbasedsorting algorithm \nwith O(n^2) complexity.", 20, 200, 16, DARKGRAY);
+                DrawText("Merge Sort: A divide-and-conquer\n algorithmwith O(n log n) \ncomplexity.", 20, 280, 16, DARKGRAY);
+            }
         }
-        }
-        switch(currentState){
+
+        // Main area for visualization
+        DrawRectangle(300, 0, screenWidth - 300, screenHeight, RAYWHITE);
+        switch (currentState) {
             case BUBBLE_SORT:
                 Bubble_Sorting.Update();
                 break;
@@ -59,11 +74,11 @@ int main(){
                 Merge_Sorting.Update();
                 break;
         }
-        EndDrawing(); 
 
+        EndDrawing();
     }
-    CloseWindow(); 
 
-    return 0; 
+    CloseWindow();
+    return 0;
 
 }
