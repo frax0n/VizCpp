@@ -20,7 +20,7 @@ BubbleSort :: BubbleSort(int size)
 void BubbleSort :: Draw(){
     utils Custom_Utils = utils();
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground(BLACK);
     Custom_Utils.Draw2dArray(this->random_array, size);
     EndDrawing();
     std::this_thread::sleep_for(std::chrono::milliseconds(25));

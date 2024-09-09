@@ -23,13 +23,22 @@
             "name": "Mac",
             "includePath": [
                 "${default}",
-                "include/**"
+                "include/**",
+                "${workspaceFolder}/include",   // Include folder in your project
+                "${workspaceFolder}/src",       // If you're including files from src
+                "/Library/Developer/CommandLineTools/harshdutta/include/c++/v1",  // Standard C++ headers
+                "/usr/local/include",           // If you're using any local libraries
+                "/usr/include",                 // System-wide include path
+                "/System/Library/Frameworks",   // For frameworks like Cocoa, OpenGL, etc.
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include", // Xcode includes
+                "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
+                
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "compilerPath": "/usr/bin/clang++",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-arm64"

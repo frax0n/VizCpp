@@ -7,7 +7,9 @@
 #include "raygui.h" 
 #include "bubble_sort.h"
 #include "merge_sort.h"
-
+#include "fibonacci.h"
+#include <stdio.h>
+#include <unistd.h>
 
 
 int main(){
@@ -15,40 +17,37 @@ int main(){
     MENU,
     BUBBLE_SORT,
     MERGE_SORT,
+    FIBONACCI,
     STOPPED,
     ERROR};
 
     State currentState = MENU;
+    int x = (int)(GetMonitorWidth(0) * 0.7);
+    int y = (int)(GetMonitorHeight(0)* 0.7);
+    const int screenWidth = x;
+    const int screenHeight = y;
 
-
-
-    const int screenWidth = 1600;
-    const int screenHeight = 900;
-
-    InitWindow(screenWidth,screenHeight,"Raylib Project");
+    InitWindow(screenWidth,screenHeight,"Algorithm Visualization");
     SetTargetFPS(60);
-    
-    std::vector<int> rand_array;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, 100);
-    
-    for (int i = 0; i < 40; ++i) {
-        rand_array.push_back(dis(gen));
-    }
 
-    
-    BubbleSort Bubble_Sorting =  BubbleSort(40);
-    MergeSort Merge_Sorting =  MergeSort(40);
+    fprintf(stderr, "Printing in console.\n");
+    fprintf(stderr, "screenWidth ,screenHeight:%i:%i,%i:%i\n",GetMonitorWidth(0),x,GetMonitorHeight(0),y);
+
+    BubbleSort Bubble_Sorting =  BubbleSort(35);
+    MergeSort Merge_Sorting =  MergeSort(35);
+    Fibonacci Fibonacci_viz = Fibonacci(5);
     while (!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(WHITE);
         if (currentState == MENU){
             if(GuiButton((Rectangle){ 24, 24, 120, 30 },"Bubble Sort") == true){
             currentState = BUBBLE_SORT;
         }
             if(GuiButton((Rectangle){ 24, 48, 120, 30 },"Merge Sort") == true){
                 currentState = MERGE_SORT;
+        }
+            if(GuiButton((Rectangle){ 24, 72, 120, 30 },"Fibonacci") == true){
+                currentState = FIBONACCI;
         }
         }
         switch(currentState){
@@ -57,6 +56,9 @@ int main(){
                 break;
             case MERGE_SORT:
                 Merge_Sorting.Update();
+                break;
+            case FIBONACCI:
+                Fibonacci_viz.Draw();
                 break;
         }
         EndDrawing(); 
