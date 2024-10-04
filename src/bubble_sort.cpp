@@ -27,7 +27,6 @@ void BubbleSort :: Draw(){
 
 }
 
-
 void BubbleSort :: Update()
 {   
     int temp = 0;
