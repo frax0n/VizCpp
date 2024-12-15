@@ -1,5 +1,9 @@
 #pragma once
 #include <vector>
+#include "utils.h"
+
+class utils;
+
 
 class MergeSort
 {
@@ -11,7 +15,9 @@ public:
     void Draw();
 
 private:
+    utils Custom_Utils;
     std::vector<int> random_array;
     int size;
     bool isSorted;
+    bool close;
 };

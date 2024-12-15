@@ -6,7 +6,8 @@
 #include <thread>
 
 MergeSort :: MergeSort(int size)
-{
+{   
+    this->Custom_Utils = utils();
     this->size = size;
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -15,19 +16,28 @@ MergeSort :: MergeSort(int size)
         this->random_array.push_back(dis(gen));
     }
     this->isSorted=false;
+    close = false;
+    
 }
 
 void MergeSort :: Draw(){
-    utils Custom_Utils = utils();
+    //utils Custom_Utils = utils();
     BeginDrawing();
     ClearBackground(RAYWHITE);
     Custom_Utils.Draw2dArray(this->random_array, size);
+    utils::TextInfo back_button = {"Back Button", 82, 82, 20};
+    bool hovering = Custom_Utils.IsMouseOverText(back_button.text, back_button.x, back_button.y, back_button.fontSize);
+    if (hovering) {
+                DrawText(back_button.text, back_button.x, back_button.y, back_button.fontSize, BLUE); // Hover color
+                DrawLine(back_button.x, back_button.y + back_button.fontSize, back_button.x + MeasureText(back_button.text, back_button.fontSize), back_button.y + back_button.fontSize, BLUE); // Underline
+            } else {
+                DrawText(back_button.text, back_button.x, back_button.y, back_button.fontSize, BLACK); // Default color
+            }
+    if (hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {this->close=true;}
     EndDrawing();
-    std::this_thread::sleep_for(std::chrono::milliseconds(25));
-
+    //std::this_thread::sleep_for(std::chrono::milliseconds(0.001));
+    
 }
-
-
 
 
 void MergeSort :: merge(std::vector<int>& x, int left, 
@@ -58,6 +68,7 @@ void MergeSort :: merge(std::vector<int>& x, int left,
             x[k] = R[j];
             j++;
             this->Draw();
+            if (close) return;
         }
         k++;
     }
@@ -68,6 +79,7 @@ void MergeSort :: merge(std::vector<int>& x, int left,
         i++;
         k++;
         this->Draw();
+        if (close) return;
     }
 
 
@@ -76,6 +88,7 @@ void MergeSort :: merge(std::vector<int>& x, int left,
         j++;
         k++;
         this->Draw();
+        if (close) return;
     }
     if ((n1+n2)==this->size){
         isSorted = true;
@@ -97,12 +110,18 @@ void MergeSort :: merge_sort(std::vector<int>& x, int left, int right)
 
 void MergeSort :: Update()
 {   
-    if (this->isSorted==false){
-        this->merge_sort(this->random_array,0,this->size);
-    }
-    if (this->isSorted==true){
-        this->Draw();
-    }
     
+    while(!close){
+        if (close) {
+            return; 
+        }
+        if (this->isSorted==false){
+            this->merge_sort(this->random_array,0,this->size);
+        }
+        if (this->isSorted==true){
+            this->Draw();
+        }
+        
+    }
 
 }

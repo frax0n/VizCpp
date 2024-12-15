@@ -10,7 +10,7 @@ BubbleSort :: BubbleSort(int size)
     this->size = size;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, 100);
+    std::uniform_int_distribution<> dis(1, 500);
     for (int i = 0 ; i<this->size; i++){
         this->random_array.push_back(dis(gen));
     }
@@ -23,7 +23,7 @@ void BubbleSort :: Draw(){
     ClearBackground(RAYWHITE);
     Custom_Utils.Draw2dArray(this->random_array, size);
     EndDrawing();
-    std::this_thread::sleep_for(std::chrono::milliseconds(25));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
 }
 
