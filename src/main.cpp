@@ -12,6 +12,9 @@
 #include "bubble_sort.h"
 #include "merge_sort.h"
 #include <iostream>
+#include <math.h>
+#include "sinwaves.h"
+#include "random_traverse.h"
 
 float RadialFalloff(float x, float y, float centerX, float centerY, float radius)
 {
@@ -35,14 +38,24 @@ float RadialFalloff(float x, float y, float centerX, float centerY, float radius
 utils Custom_Utils = utils();
 
 int main(void)
-{   bool testMode = false;
+{   bool testMode = true;
     if(testMode == true){
+        SetConfigFlags(FLAG_MSAA_4X_HINT);
+        
         InitWindow(0, 0, "Test MODE");
+        RandomTraverse randomTraverse = RandomTraverse(321,15);
+        
+        
         while (!WindowShouldClose())    
-    {
+    {   
+        
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("BRUH",500,500,40,BLACK);
+        ClearBackground(BLACK);
+        DrawCircle(GetScreenWidth()/2,GetScreenHeight()/2,400,LIGHTGRAY);
+        randomTraverse.TranverseSeedMod();
+        Vector2 circleCenter = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+        float circleRadius = 400.0f;
+        
         EndDrawing();
     }
 
@@ -55,7 +68,7 @@ int main(void)
     const int screenWidth = GetScreenWidth();
     const int screenHeight =  GetScreenHeight();
     std::vector<float> falloffValues(1000 * 1000);
-    float falloffRadius = 500;
+    float falloffRadius = 1000000;
     for (int y = 0; y < 1000; y++) {
     for (int x = 0; x < 1000; x++) {
         falloffValues[y * 1000 + x] = RadialFalloff(x, y, 1000/2, 1000/2, falloffRadius);
@@ -134,7 +147,7 @@ int main(void)
 
     float startZ =  10.274;
     float endZ = -11.6438 ; 
-
+    SinWaves sineWave = SinWaves(GetScreenWidth(),GetScreenHeight(),0 * (PI / 180.0f),BLACK);
     while (!WindowShouldClose())    
     {
 
@@ -165,6 +178,12 @@ int main(void)
         GuiSlider((Rectangle){ 100, 140, 600, 20 }, "Camera Y", NULL, &camY, 0.0f, 100.0f);
         GuiSlider((Rectangle){ 100, 180, 600, 20 }, "Camera Z", NULL, &camZ, -100.0f, 100.0f);
  
+        // sineWave.Update(-100,0,GRAY);
+        // sineWave.Update(-100,10,GRAY);
+        // sineWave.Update(-100,20,GRAY);
+        // sineWave.Update(-100,30,GRAY);
+        // sineWave.Update(-100,40,GRAY);
+        // sineWave.Update(-100,50,GRAY);
 
         BeginMode3D(camera);
             
