@@ -43,16 +43,16 @@ int main(void)
         SetConfigFlags(FLAG_MSAA_4X_HINT);
         
         InitWindow(0, 0, "Test MODE");
-        RandomTraverse randomTraverse = RandomTraverse(321,15);
+        RandomTraverse randomTraverse = RandomTraverse(343222223,30);
         
         
         while (!WindowShouldClose())    
     {   
         
         BeginDrawing();
-        ClearBackground(BLACK);
-        DrawCircle(GetScreenWidth()/2,GetScreenHeight()/2,400,LIGHTGRAY);
-        randomTraverse.TranverseSeedMod();
+        ClearBackground(WHITE);
+        //DrawCircle(GetScreenWidth()/2,GetScreenHeight()/2,400,LIGHTGRAY);
+        randomTraverse.TranverseLCG();
         Vector2 circleCenter = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
         float circleRadius = 400.0f;
         

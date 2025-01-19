@@ -6,7 +6,8 @@ class RandomTraverse{
     public:
         RandomTraverse(int seed,int length);
         void Draw();
-        void TranverseSeedMod();
+        void RandomTraverseSimple();
+        void RandomTraverseBitShift();
         void TranverseLCG();
         int PointDistance(Vector2 point1,Vector2 point2);
 

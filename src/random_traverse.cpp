@@ -26,7 +26,7 @@ void RandomTraverse :: Draw(){
     for (size_t i = 1; i < points.size(); ++i) {
         int psuedoLength = PointDistance(this->points[i - 1],this->points[i]);
         int distCentre = PointDistance({screenWidth/2,screenHeight/2},this->points[i-1]);
-        if((psuedoLength > this->length+100 )|| (distCentre>380)){
+        if((psuedoLength > this->length+100 )|| (distCentre>4000)){
             this->skipIteration  = true;
             continue;
         }
@@ -36,7 +36,7 @@ void RandomTraverse :: Draw(){
 
 };
 
-void RandomTraverse :: TranverseSeedMod(){
+void RandomTraverse :: RandomTraverseSimple(){
     double randomNumber = static_cast<int>((this->seed * this->seed)) % 9973;
     double rand = randomNumber;
     randomNumber = static_cast<int>(randomNumber) % 360;
@@ -59,12 +59,45 @@ void RandomTraverse :: TranverseSeedMod(){
     this->Draw();
 }
 
+
+
+void RandomTraverse :: RandomTraverseBitShift() {
+    this->seed = static_cast<int>(this->seed) ^ (static_cast<int>(this->seed) << 13);
+    this->seed = static_cast<int>(this->seed) ^ (static_cast<int>(this->seed) >> 17);
+    this->seed = static_cast<int>(this->seed) ^ (static_cast<int>(this->seed) << 5);
+
+    double randomNumber = static_cast<int>(this->seed) % 360;
+
+    Vector2 point = this->points.back();
+    float x = point.x;
+    float y = point.y;
+
+    float rad = randomNumber * (PI / 180.0f);
+    float newX = x + (length * cos(rad));
+    float newY = y + (length * sin(rad));
+
+    newX = static_cast<int>(newX + screenWidth) % screenWidth;
+    newY = static_cast<int>(newY + screenHeight) % screenHeight;
+
+    std::cout << randomNumber << " ";
+
+    this->points.push_back({newX, newY});
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(25));
+
+    this->Draw();
+}
+
+
 void RandomTraverse :: TranverseLCG(){
 
+    // int a = 16645; 
+    // int c = 101390; 
+    // int m = 42949; 
+    
     int a = 16645; 
     int c = 101390; 
-    int m = 42949; 
-
+    int m = 4332; 
     long long result = static_cast<long long>(a) * this->seed + c; 
 
     long long modResult = result % m;
@@ -75,7 +108,6 @@ void RandomTraverse :: TranverseLCG(){
     }
     double randomNumber = static_cast<int>(modResult);
 
-    //double randomNumber = static_cast<int>((this->seed * this->seed)) % 9973;
     randomNumber = static_cast<int>(randomNumber) % 360;
 
     Vector2 point = this->points.back();
